@@ -1,33 +1,44 @@
 {
-    "manifest_version": 3,
-    "default_locale": "en",
+  "manifest_version": 3,
+  "default_locale": "en",
 
-    "name": "__MSG_extension_name__",
-    "description": "__MSG_extension_description__",
-    "version": "1.0",
+  "name": "__MSG_extension_name__",
+  "description": "__MSG_extension_description__",
+  "version": "1.0",
 
-    "icons": {
-        "48": "images/icon-48.png",
-        "96": "images/icon-96.png",
-        "128": "images/icon-128.png",
-        "256": "images/icon-256.png",
-        "512": "images/icon-512.png"
-    },
+  "icons": {
+    "48": "images/icon-48.png",
+    "96": "images/icon-96.png",
+    "128": "images/icon-128.png",
+    "256": "images/icon-256.png",
+    "512": "images/icon-512.png"
+  },
 
-    "background": {
-        "scripts": [ "background.js" ],
-        "type": "module"
-    },
+  "background": {
+    "scripts": ["background.js"],
+    "type": "module"
+  },
 
-    "content_scripts": [{
-        "js": [ "content.js" ],
-        "matches": [ "*://example.com/*" ]
-    }],
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": [
+        "https://news.ycombinator.com/",
+        "https://hckrnews.com/",
+        "https://reddit.com/",
+        "https://www.reddit.com/",
+        "https://lobste.rs/",
+        "https://youtube.com/",
+        "https://www.youtube.com/",
+        "https://github.com/dashboard-feed"
+      ]
+    }
+  ],
 
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": "images/toolbar-icon.svg"
-    },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "images/toolbar-icon.svg"
+  },
 
-    "permissions": [ ]
+  "permissions": []
 }
