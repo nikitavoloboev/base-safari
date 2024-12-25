@@ -1,0 +1,10 @@
+{
+    "extension_name": {
+        "message": "base-safari Extension",
+        "description": "The display name for the extension."
+    },
+    "extension_description": {
+        "message": "This is base-safari Extension. You should tell us what your extension does here.",
+        "description": "Description of what the extension does."
+    }
+}
