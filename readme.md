@@ -10,9 +10,9 @@ Shown in action [here](https://x.com/nikitavoloboev/status/1780226797575065665).
 
 Open project in Xcode.
 
-Edit [content.js](<Shared%20(Extension)/Resources/content.js>) file. The `urls` variable holds the websites to block. There is also schedule defined inside. Edit it for your own use.
+Edit [content.js](base-safari%20Extension/Resources/content.js) file. The `urls` variable holds the websites to block. There is also schedule defined inside. Edit it for your own use.
 
-Edit [manifest.json](<Shared%20(Extension)/Resources/manifest.json>), `content_scripts`/`matches` to include the websites too.
+Edit [manifest.json](base-safari%20Extension/Resources/manifest.json), `content_scripts`/`matches` to include the websites too.
 
 Build extension in Xcode and activate it in Safari settings (give permissions to websites there too).
 
