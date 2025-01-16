@@ -8,6 +8,42 @@
 		<string>com.apple.Safari.web-extension</string>
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).SafariWebExtensionHandler</string>
+		<!-- Add extension attributes -->
+		<key>SFSafariWebExtensionConverterVersion</key>
+		<string>13.0</string>
+		<key>SFSafariExtensionBundleIdentifiersToUninstall</key>
+		<array/>
+		<key>SFSafariContentScript</key>
+		<array>
+			<dict>
+				<key>Script</key>
+				<string>content.js</string>
+			</dict>
+		</array>
+		<key>SFSafariBackgroundScript</key>
+		<array>
+			<string>background.js</string>
+		</array>
+		<key>SFSafariToolbarItem</key>
+		<dict>
+			<key>Action</key>
+			<string>Popup</string>
+			<key>Identifier</key>
+			<string>Button</string>
+			<key>Image</key>
+			<string>Icon.png</string>
+			<key>Label</key>
+			<string>Your Extension</string>
+		</dict>
+		<key>SFSafariPopup</key>
+		<dict>
+			<key>Height</key>
+			<integer>100</integer>
+			<key>Width</key>
+			<integer>200</integer>
+			<key>Filename</key>
+			<string>popup.html</string>
+		</dict>
 	</dict>
 </dict>
 </plist>

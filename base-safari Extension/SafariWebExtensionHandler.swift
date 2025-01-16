@@ -10,6 +10,8 @@ import os.log
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
+    private var isBlocked: Bool = false
+
     func beginRequest(with context: NSExtensionContext) {
         let request = context.inputItems.first as? NSExtensionItem
 
@@ -29,14 +31,41 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
         os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
 
-        let response = NSExtensionItem()
-        if #available(iOS 15.0, macOS 11.0, *) {
-            response.userInfo = [ SFExtensionMessageKey: [ "echo": message ] ]
-        } else {
-            response.userInfo = [ "message": [ "echo": message ] ]
+        let item = request
+        let commandMessage = item?.userInfo?[SFExtensionMessageKey] as? [String: Any]
+        
+        guard let command = commandMessage?["command"] as? String else {
+            let response = NSExtensionItem()
+            if #available(iOS 15.0, macOS 11.0, *) {
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message ] ]
+            } else {
+                response.userInfo = [ "message": [ "echo": message ] ]
+            }
+            context.completeRequest(returningItems: [ response ], completionHandler: nil)
+            return
         }
-
-        context.completeRequest(returningItems: [ response ], completionHandler: nil)
+        
+        let response = NSExtensionItem()
+        
+        switch command {
+        case "getBlockStatus":
+            // Respond with current block status
+            response.userInfo = [ SFExtensionMessageKey: ["command": "checkBlockStatus", "isBlocked": isBlocked] ]
+            
+        case "toggleBlock":
+            // Toggle blocking state
+            isBlocked.toggle()
+            response.userInfo = [ SFExtensionMessageKey: ["command": "checkBlockStatus", "isBlocked": isBlocked] ]
+            
+        default:
+            if #available(iOS 15.0, macOS 11.0, *) {
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message ] ]
+            } else {
+                response.userInfo = [ "message": [ "echo": message ] ]
+            }
+        }
+        
+        context.completeRequest(returningItems: [response], completionHandler: nil)
     }
 
 }
