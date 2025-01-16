@@ -30,17 +30,23 @@ function hideBodyAndAddText() {
 }
 
 if (urls.includes(currentUrl)) {
+  // Set up listener for future state changes
   browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.command === 'checkBlockStatus') {
-      if (request.isBlocked) {
-        hideBodyAndAddText()
-        // opens `Things` app in `Today` view
-        window.location.href = "things:///show?id=today"
-      }
+    if (request.command === "checkBlockStatus" && request.isBlocked) {
+      hideBodyAndAddText()
+      window.location.href = "things:///show?id=today"
     }
   })
 
-  browser.runtime.sendMessage({ command: 'getBlockStatus' })
+  // Check initial state immediately
+  browser.runtime
+    .sendMessage({ command: "getBlockStatus" })
+    .then((response) => {
+      if (response.isBlocked) {
+        hideBodyAndAddText()
+        window.location.href = "things:///show?id=today"
+      }
+    })
 }
 
 // TODO: improve
