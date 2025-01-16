@@ -2,10 +2,40 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="popup.css">
+    <style>
+        body {
+            width: 200px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+        }
+
+        #toggleBlock {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #44ff44;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        #toggleBlock[data-active="true"] {
+            background-color: #ff4444;
+        }
+
+        #toggleBlock:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body>
-    <button id="toggleBlock">Blocking Active</button>
+    <button id="toggleBlock">Blocking Inactive</button>
     <script src="popup.js"></script>
 </body>
 </html>
