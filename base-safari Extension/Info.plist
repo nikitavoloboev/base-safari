@@ -31,9 +31,11 @@
 			<key>Identifier</key>
 			<string>Button</string>
 			<key>Image</key>
-			<string>Icon.png</string>
+			<string>images/icon-white.svg</string>
+			<key>Template</key>
+			<false/>
 			<key>Label</key>
-			<string>Your Extension</string>
+			<string>Site Blocker</string>
 		</dict>
 		<key>SFSafariPopup</key>
 		<dict>
