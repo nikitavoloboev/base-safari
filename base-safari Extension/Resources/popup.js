@@ -1,6 +1,6 @@
 function updateUI(isBlocked) {
   const button = document.getElementById("toggleBlock")
-  button.textContent = isBlocked ? "Blocking Active" : "Blocking Inactive"
+  button.textContent = isBlocked ? "In Focus" : "In Break"
   button.style.backgroundColor = isBlocked ? "#ff4444" : "#44ff44"
 }
 
