@@ -34,7 +34,6 @@ if (urls.includes(currentUrl)) {
   browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.command === "checkBlockStatus" && request.isBlocked) {
       hideBodyAndAddText()
-      // window.location.href = "things:///show?id=today"
     }
   })
 
@@ -44,7 +43,6 @@ if (urls.includes(currentUrl)) {
     .then((response) => {
       if (response.isBlocked) {
         hideBodyAndAddText()
-        // window.location.href = "things:///show?id=today"
       }
     })
 }
