@@ -1,31 +1,36 @@
-let isBlocked = true // Start with blocking enabled
-
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.command === "getBlockStatus") {
-    return Promise.resolve({ isBlocked })
+    return browser.runtime.sendNativeMessage({ command: "getBlockStatus" })
   }
 
   if (request.command === "toggleBlock") {
-    isBlocked = !isBlocked
-    // Notify all tabs about the state change
-    browser.tabs.query({}).then((tabs) => {
-      tabs.forEach((tab) => {
-        browser.tabs.sendMessage(tab.id, {
-          command: "checkBlockStatus",
-          isBlocked,
+    return browser.runtime
+      .sendNativeMessage({ command: "toggleBlock" })
+      .then((response) => {
+        // Notify all tabs about the state change
+        browser.tabs.query({}).then((tabs) => {
+          tabs.forEach((tab) => {
+            browser.tabs.sendMessage(tab.id, {
+              command: "checkBlockStatus",
+              isBlocked: response.isBlocked,
+            })
+          })
         })
+        return response
       })
-    })
-    return Promise.resolve({ isBlocked })
   }
 })
 
 // When extension starts, check all tabs
-browser.tabs.query({}).then((tabs) => {
-  tabs.forEach((tab) => {
-    browser.tabs.sendMessage(tab.id, {
-      command: "checkBlockStatus",
-      isBlocked: true,
+browser.runtime
+  .sendNativeMessage({ command: "getBlockStatus" })
+  .then((response) => {
+    browser.tabs.query({}).then((tabs) => {
+      tabs.forEach((tab) => {
+        browser.tabs.sendMessage(tab.id, {
+          command: "checkBlockStatus",
+          isBlocked: response.isBlocked,
+        })
+      })
     })
   })
-})
